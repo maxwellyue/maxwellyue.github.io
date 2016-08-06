@@ -84,12 +84,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Maxwell">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="什么时候才会产生动态权限的申请等
+targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对于安卓权限管理的理解">
+<meta property="og:url" content="http://yoursite.com/2016/08/06/对于安卓权限管理的理解/index.html">
 <meta property="og:site_name" content="Maxwell">
+<meta property="og:description" content="什么时候才会产生动态权限的申请等
+targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
+<meta property="og:updated_time" content="2016-08-06T13:50:29.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maxwell">
+<meta name="twitter:title" content="对于安卓权限管理的理解">
+<meta name="twitter:description" content="什么时候才会产生动态权限的申请等
+targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
 
 
 
@@ -110,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/06/对于安卓权限管理的理解/"/>
 
-  <title> Maxwell </title>
+  <title> 对于安卓权限管理的理解 | Maxwell </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,9 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -232,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -254,10 +259,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/06/对于安卓权限管理的理解/" itemprop="url">
-                  对于安卓权限管理的理解
-                </a>
+                对于安卓权限管理的理解
               
             
           </h1>
@@ -332,9 +334,7 @@
       
 
       
-        
-          
-            <h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
+        <h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
 <li><p>targetSdkVersion &gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；<br>如果targetSdkVersion &lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；<br>如果targetSdkVersion &gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧的权限系统；<br>只有在targetSdkVersion &gt;= 23，手机系统是6.0及以上，才需要进行动态权限的处理。</p>
 </li>
 <li><p>但是，假如targetSdkVersion &lt; 23，但是用户手机是6.0及以上，手动关闭了应用的某个权限，用户取消授权时，android 6.0系统会警告，但用户可以无视这种警告而取消授权。这个时候，系统本身不抛出异常，他将啥都不干，结果导致函数返回值是null或者0。尽管app不会在调用这个函数时崩溃，但是返回值null或者0可能接下来依然导致崩溃。</p>
@@ -409,16 +409,20 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 <li><a href="https://kingideayou.github.io/2015/11/09/Android_M_permissions/" target="_blank" rel="external">Android M 应用获取权限</a></li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -426,281 +430,32 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/06/Android-Studio导入支持包的问题/" rel="next" title="AndroidStudio的build.gradle文件配置以及导入支持包的问题">
+                <i class="fa fa-chevron-left"></i> AndroidStudio的build.gradle文件配置以及导入支持包的问题
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/08/06/Android-Studio导入支持包的问题/" itemprop="url">
-                  AndroidStudio的build.gradle文件配置以及导入支持包的问题
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-06T21:01:09+08:00" content="2016-08-06">
-              2016-08-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">安卓开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/06/Android-Studio导入支持包的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/06/Android-Studio导入支持包的问题/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/08/06/Android-Studio导入支持包的问题/" class="leancloud_visitors" data-flag-title="AndroidStudio的build.gradle文件配置以及导入支持包的问题">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>使用AndroidStudio的过程中，对build.gradle文件配置以及导入支持包的问题的一些总结，在此记录下来。有时候，头疼的不是面对新功能无从下手，而是为了可以正常敲代码与编译环境作斗争。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/06/Android-Studio导入支持包的问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/05/GitHub+Hexo搭建个人博客/" itemprop="url">
-                  利用GitHub+Hexo免费搭建个人Blog
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T19:40:23+08:00" content="2016-08-05">
-              2016-08-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/tools/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/05/GitHub+Hexo搭建个人博客/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/GitHub+Hexo搭建个人博客/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/08/05/GitHub+Hexo搭建个人博客/" class="leancloud_visitors" data-flag-title="利用GitHub+Hexo免费搭建个人Blog">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>免费、简洁的个人Blog的实现。主要是流程的记录，具体的配置都给出了教程链接，免得以后再做同样的工作的时候又要从零开始。按照这个流程执行下去，应该可以打造出一个简单的个人Blog。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/05/GitHub+Hexo搭建个人博客/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -708,6 +463,14 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/06/对于安卓权限管理的理解/"
+           data-title="对于安卓权限管理的理解" data-url="http://yoursite.com/2016/08/06/对于安卓权限管理的理解/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -727,8 +490,17 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -778,6 +550,17 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么时候才会产生动态权限的申请等"><span class="nav-number">1.</span> <span class="nav-text">什么时候才会产生动态权限的申请等</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限分类"><span class="nav-number">2.</span> <span class="nav-text">权限分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fragment申请权限的时候"><span class="nav-number">3.</span> <span class="nav-text">Fragment申请权限的时候</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在targetSdkVersion-lt-22的时候"><span class="nav-number">4.</span> <span class="nav-text">在targetSdkVersion < = 22的时候</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -874,6 +657,10 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
