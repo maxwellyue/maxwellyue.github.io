@@ -333,83 +333,12 @@
 
       
         
-          
-            <h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
-<li><p>targetSdkVersion &gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；<br>如果targetSdkVersion &lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；<br>如果targetSdkVersion &gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧的权限系统；<br>只有在targetSdkVersion &gt;= 23，手机系统是6.0及以上，才需要进行动态权限的处理。</p>
-</li>
-<li><p>但是，假如targetSdkVersion &lt; 23，但是用户手机是6.0及以上，手动关闭了应用的某个权限，用户取消授权时，android 6.0系统会警告，但用户可以无视这种警告而取消授权。这个时候，系统本身不抛出异常，他将啥都不干，结果导致函数返回值是null或者0。尽管app不会在调用这个函数时崩溃，但是返回值null或者0可能接下来依然导致崩溃。</p>
-</li>
-<li><p>上述只是针对原生系统的，国内厂商即使是4.4或者5.1等等6.0以下的系统版本中，基本都会有权限管理，很多第三方应用360，LBE等等也会有权限管理，他们的实现原理我不清楚，因此我觉得最好在应用中实现权限检测、申请这类的工作，防止应用各种意外。</p>
-</li>
-<li><p>项目中，targetSdkVersion 是22，我的做法是，在使用危险权限之前，检测应用有没有被授权（虽然按道理来讲，安装的时候都被授权了，但可能被用户手动关闭了），如果有，就正常调用，如果没有，就弹出Dialog提示用户没有被授权该权限，请开启后重试。具体怎么开启，交给用户自己去做，在这里只是提示而已。也就是说，在项目中，并没有做targetSdkVersion &gt;= 23的真正意义的动态权限管理。</p>
-</li>
-</ul>
-<h1 id="权限分类"><a href="#权限分类" class="headerlink" title="权限分类"></a>权限分类</h1><p>以下是危险权限，必须动态管理的（其他未列出的权限时属于正常权限，用户无法取消授权）</p>
-<pre><code>group:android.permission-group.CONTACTS
-  permission:android.permission.WRITE_CONTACTS
-  permission:android.permission.GET_ACCOUNTS
-  permission:android.permission.READ_CONTACTS
-
-group:android.permission-group.PHONE
-  permission:android.permission.READ_CALL_LOG
-  permission:android.permission.READ_PHONE_STATE
-  permission:android.permission.CALL_PHONE
-  permission:android.permission.WRITE_CALL_LOG
-  permission:android.permission.USE_SIP
-  permission:android.permission.PROCESS_OUTGOING_CALLS
-  permission:com.android.voicemail.permission.ADD_VOICEMAIL
-
-group:android.permission-group.CALENDAR
-  permission:android.permission.READ_CALENDAR
-  permission:android.permission.WRITE_CALENDAR
-
-group:android.permission-group.CAMERA
-  permission:android.permission.CAMERA
-
-group:android.permission-group.SENSORS
-  permission:android.permission.BODY_SENSORS
-
-group:android.permission-group.LOCATION
-  permission:android.permission.ACCESS_FINE_LOCATION
-  permission:android.permission.ACCESS_COARSE_LOCATION
-
-group:android.permission-group.STORAGE
-  permission:android.permission.READ_EXTERNAL_STORAGE
-  permission:android.permission.WRITE_EXTERNAL_STORAGE
-
-group:android.permission-group.MICROPHONE
-  permission:android.permission.RECORD_AUDIO
-
-group:android.permission-group.SMS
-  permission:android.permission.READ_SMS
-  permission:android.permission.RECEIVE_WAP_PUSH
-  permission:android.permission.RECEIVE_MMS
-  permission:android.permission.RECEIVE_SMS
-  permission:android.permission.SEND_SMS
-  permission:android.permission.READ_CELL_BROADCASTS
-</code></pre><p>同一个Group中，只要有一个Permission被授权，就认为该Group内的其他Permission也被授权。</p>
-<h1 id="Fragment申请权限的时候"><a href="#Fragment申请权限的时候" class="headerlink" title="Fragment申请权限的时候"></a>Fragment申请权限的时候</h1><pre><code>如果使用ActivityCompat.requestPermissions，不会调用onRequestPermissionsResult()
-应该直接requestPermissions，没有前面的ActivityCompat
-请求权限
-requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-</code></pre><h1 id="在targetSdkVersion-lt-22的时候"><a href="#在targetSdkVersion-lt-22的时候" class="headerlink" title="在targetSdkVersion &lt; = 22的时候"></a>在targetSdkVersion &lt; = 22的时候</h1><ul>
-<li>判断用户是否有某个权限，要使用API：</li>
-</ul>
-<p><code>PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)</code></p>
-<ul>
-<li>由于某种原因，项目的targetSdkVersion 最高只能设置到22，但是需要在调用系统相机的时候检测权限，原本是使用如下的权限工具类来检测是否有权限的：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import android.content.Context;</div><div class="line">import android.content.pm.PackageManager;</div><div class="line">import android.support.v4.content.ContextCompat;</div><div class="line"></div><div class="line">public class PermissionUtil &#123;</div><div class="line">    private final Context mContext;</div><div class="line"></div><div class="line">    public PermissionUtil(Context context) &#123;</div><div class="line">        mContext = context.getApplicationContext();</div><div class="line">    &#125;</div><div class="line">    // 判断权限集合</div><div class="line">    public boolean lacksPermissions(String... permissions) &#123;</div><div class="line">        for (String permission : permissions) &#123;</div><div class="line">            if (lacksPermission(permission)) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    // 判断是否缺少权限,缺少返回true:只有targetSDKversion &gt;=23 的时候有效</div><div class="line">    public boolean lacksPermission(String permission) &#123;</div><div class="line">        return ContextCompat.checkSelfPermission(mContext, permission) ==</div><div class="line">                PackageManager.PERMISSION_DENIED;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但是这种方式检测<code>ContextCompat.checkSelfPermission</code>无论开启和关闭权限，检测出来都是同一个结果，因为这种检测方式只适用于targetSdkVersion &gt;= 23的情况。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://jijiaxin89.com/2015/08/30/Android-s-Runtime-Permission/" target="_blank" rel="external">Android M 新的运行时权限开发者需要知道的一切</a></li>
-<li><a href="https://yanlu.me/android-m6-0-permission-chasm/" target="_blank" rel="external">Android M(6.0) 权限爬坑之旅</a></li>
-<li><a href="https://www.aswifter.com/2015/11/04/android-6-permission/" target="_blank" rel="external">Android 6.0 运行时权限处理</a>: 有相关开源项目介绍</li>
-<li><a href="https://kingideayou.github.io/2015/11/09/Android_M_permissions/" target="_blank" rel="external">Android M 应用获取权限</a></li>
-</ul>
-
-          
+          <p>关于动态权限申请的一些理解</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/06/对于安卓权限管理的理解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

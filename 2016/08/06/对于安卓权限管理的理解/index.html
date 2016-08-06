@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="什么时候才会产生动态权限的申请等
-targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
+<meta name="description" content="关于动态权限申请的一些理解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对于安卓权限管理的理解">
 <meta property="og:url" content="http://yoursite.com/2016/08/06/对于安卓权限管理的理解/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="什么时候才会产生动态权限的申请等
-targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
-<meta property="og:updated_time" content="2016-08-06T13:50:29.769Z">
+<meta property="og:description" content="关于动态权限申请的一些理解">
+<meta property="og:updated_time" content="2016-08-06T13:56:04.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对于安卓权限管理的理解">
-<meta name="twitter:description" content="什么时候才会产生动态权限的申请等
-targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；如果targetSdkVersion &amp;lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；如果targetSdkVersion &amp;gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧">
+<meta name="twitter:description" content="关于动态权限申请的一些理解">
 
 
 
@@ -334,7 +331,9 @@ targetSdkVersion &amp;gt;= 23 ；手机是安卓6.0及以上；这两个条件�
       
 
       
-        <h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
+        <p>关于动态权限申请的一些理解</p>
+<a id="more"></a>
+<h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
 <li><p>targetSdkVersion &gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；<br>如果targetSdkVersion &lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；<br>如果targetSdkVersion &gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧的权限系统；<br>只有在targetSdkVersion &gt;= 23，手机系统是6.0及以上，才需要进行动态权限的处理。</p>
 </li>
 <li><p>但是，假如targetSdkVersion &lt; 23，但是用户手机是6.0及以上，手动关闭了应用的某个权限，用户取消授权时，android 6.0系统会警告，但用户可以无视这种警告而取消授权。这个时候，系统本身不抛出异常，他将啥都不干，结果导致函数返回值是null或者0。尽管app不会在调用这个函数时崩溃，但是返回值null或者0可能接下来依然导致崩溃。</p>
