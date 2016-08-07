@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/08/05/GitHub+Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2016-08-06T14:11:24.180Z</lastmod>
+    <data>
+        <display>
+        <title>利用GitHub+Hexo免费搭建个人Blog</title>
+        <pubTime>2016-08-05T11:40:23.000Z</pubTime>
+        
+        <tag>工具使用</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://yoursite.com/categories/tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/08/06/%E5%AF%B9%E4%BA%8E%E5%AE%89%E5%8D%93%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3/</loc>
+    <lastmod>2016-08-06T13:56:04.376Z</lastmod>
+    <data>
+        <display>
+        <title>对于安卓权限管理的理解</title>
+        <pubTime>2016-08-06T13:30:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="安卓开发" url="http://yoursite.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/08/06/Android-Studio%E5%AF%BC%E5%85%A5%E6%94%AF%E6%8C%81%E5%8C%85%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2016-08-06T13:54:34.715Z</lastmod>
+    <data>
+        <display>
+        <title>AndroidStudio的build.gradle文件配置以及导入支持包的问题</title>
+        <pubTime>2016-08-06T13:01:09.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="安卓开发" url="http://yoursite.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+</urlset>
