@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="关于动态权限申请的一些理解">
+<meta name="description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对于安卓权限管理的理解">
-<meta property="og:url" content="https://maxwellyue.github.io/2016/08/06/对于安卓权限管理的理解/index.html">
+<meta property="og:title" content="Android中Activity的启动模式">
+<meta property="og:url" content="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="关于动态权限申请的一些理解">
-<meta property="og:updated_time" content="2016-08-06T13:56:04.376Z">
+<meta property="og:description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
+<meta property="og:updated_time" content="2016-08-09T05:46:37.730Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="对于安卓权限管理的理解">
-<meta name="twitter:description" content="关于动态权限申请的一些理解">
+<meta name="twitter:title" content="Android中Activity的启动模式">
+<meta name="twitter:description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/06/对于安卓权限管理的理解/"/>
+  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/"/>
 
-  <title> 对于安卓权限管理的理解 | Maxwell </title>
+  <title> Android中Activity的启动模式 | Maxwell </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                对于安卓权限管理的理解
+                Android中Activity的启动模式
               
             
           </h1>
@@ -270,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-06T21:30:00+08:00" content="2016-08-06">
-              2016-08-06
+            <time itemprop="dateCreated" datetime="2016-08-09T10:26:36+08:00" content="2016-08-09">
+              2016-08-09
             </time>
           </span>
 
@@ -300,8 +300,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/06/对于安卓权限管理的理解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/06/对于安卓权限管理的理解/" itemprop="commentsCount"></span>
+                <a href="/2016/08/09/Android中Activity的启动模式详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/09/Android中Activity的启动模式详解/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -311,7 +311,7 @@
 
           
           
-             <span id="/2016/08/06/对于安卓权限管理的理解/" class="leancloud_visitors" data-flag-title="对于安卓权限管理的理解">
+             <span id="/2016/08/09/Android中Activity的启动模式详解/" class="leancloud_visitors" data-flag-title="Android中Activity的启动模式">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -333,81 +333,74 @@
       
 
       
-        <p>关于动态权限申请的一些理解</p>
-<a id="more"></a>
-<h1 id="什么时候才会产生动态权限的申请等"><a href="#什么时候才会产生动态权限的申请等" class="headerlink" title="什么时候才会产生动态权限的申请等"></a>什么时候才会产生动态权限的申请等</h1><ul>
-<li><p>targetSdkVersion &gt;= 23 ；手机是安卓6.0及以上；这两个条件缺一不可；<br>如果targetSdkVersion &lt; 23 ，无论手机版本是6.0还是6.0以下，都不会有动态权限申请这回事，依然使用旧的权限系统；<br>如果targetSdkVersion &gt;= 23， 但是手机是6.0以下的系统，仍然不会有动态权限申请这回事，依然使用旧的权限系统；<br>只有在targetSdkVersion &gt;= 23，手机系统是6.0及以上，才需要进行动态权限的处理。</p>
-</li>
-<li><p>但是，假如targetSdkVersion &lt; 23，但是用户手机是6.0及以上，手动关闭了应用的某个权限，用户取消授权时，android 6.0系统会警告，但用户可以无视这种警告而取消授权。这个时候，系统本身不抛出异常，他将啥都不干，结果导致函数返回值是null或者0。尽管app不会在调用这个函数时崩溃，但是返回值null或者0可能接下来依然导致崩溃。</p>
-</li>
-<li><p>上述只是针对原生系统的，国内厂商即使是4.4或者5.1等等6.0以下的系统版本中，基本都会有权限管理，很多第三方应用360，LBE等等也会有权限管理，他们的实现原理我不清楚，因此我觉得最好在应用中实现权限检测、申请这类的工作，防止应用各种意外。</p>
-</li>
-<li><p>项目中，targetSdkVersion 是22，我的做法是，在使用危险权限之前，检测应用有没有被授权（虽然按道理来讲，安装的时候都被授权了，但可能被用户手动关闭了），如果有，就正常调用，如果没有，就弹出Dialog提示用户没有被授权该权限，请开启后重试。具体怎么开启，交给用户自己去做，在这里只是提示而已。也就是说，在项目中，并没有做targetSdkVersion &gt;= 23的真正意义的动态权限管理。</p>
-</li>
+        <p>从为什么使用启动模式、启动模式是什么、怎么使用来介绍。<br><a id="more"></a></p>
+<h1 id="理解几个概念：Application，Task和Process"><a href="#理解几个概念：Application，Task和Process" class="headerlink" title="理解几个概念：Application，Task和Process"></a>理解几个概念：Application，Task和Process</h1><ul>
+<li><strong>Application</strong></li>
 </ul>
-<h1 id="权限分类"><a href="#权限分类" class="headerlink" title="权限分类"></a>权限分类</h1><p>以下是危险权限，必须动态管理的（其他未列出的权限时属于正常权限，用户无法取消授权）</p>
-<pre><code>group:android.permission-group.CONTACTS
-  permission:android.permission.WRITE_CONTACTS
-  permission:android.permission.GET_ACCOUNTS
-  permission:android.permission.READ_CONTACTS
-
-group:android.permission-group.PHONE
-  permission:android.permission.READ_CALL_LOG
-  permission:android.permission.READ_PHONE_STATE
-  permission:android.permission.CALL_PHONE
-  permission:android.permission.WRITE_CALL_LOG
-  permission:android.permission.USE_SIP
-  permission:android.permission.PROCESS_OUTGOING_CALLS
-  permission:com.android.voicemail.permission.ADD_VOICEMAIL
-
-group:android.permission-group.CALENDAR
-  permission:android.permission.READ_CALENDAR
-  permission:android.permission.WRITE_CALENDAR
-
-group:android.permission-group.CAMERA
-  permission:android.permission.CAMERA
-
-group:android.permission-group.SENSORS
-  permission:android.permission.BODY_SENSORS
-
-group:android.permission-group.LOCATION
-  permission:android.permission.ACCESS_FINE_LOCATION
-  permission:android.permission.ACCESS_COARSE_LOCATION
-
-group:android.permission-group.STORAGE
-  permission:android.permission.READ_EXTERNAL_STORAGE
-  permission:android.permission.WRITE_EXTERNAL_STORAGE
-
-group:android.permission-group.MICROPHONE
-  permission:android.permission.RECORD_AUDIO
-
-group:android.permission-group.SMS
-  permission:android.permission.READ_SMS
-  permission:android.permission.RECEIVE_WAP_PUSH
-  permission:android.permission.RECEIVE_MMS
-  permission:android.permission.RECEIVE_SMS
-  permission:android.permission.SEND_SMS
-  permission:android.permission.READ_CELL_BROADCASTS
-</code></pre><p>同一个Group中，只要有一个Permission被授权，就认为该Group内的其他Permission也被授权。</p>
-<h1 id="Fragment申请权限的时候"><a href="#Fragment申请权限的时候" class="headerlink" title="Fragment申请权限的时候"></a>Fragment申请权限的时候</h1><pre><code>如果使用ActivityCompat.requestPermissions，不会调用onRequestPermissionsResult()
-应该直接requestPermissions，没有前面的ActivityCompat
-请求权限
-requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-</code></pre><h1 id="在targetSdkVersion-lt-22的时候"><a href="#在targetSdkVersion-lt-22的时候" class="headerlink" title="在targetSdkVersion &lt; = 22的时候"></a>在targetSdkVersion &lt; = 22的时候</h1><ul>
-<li>判断用户是否有某个权限，要使用API：</li>
-</ul>
-<p><code>PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)</code></p>
+<p>应用，由四大组件组成的，在app安装时，系统会读取manifest的信息，将所有的组件解析出来，以便在运行时对组件进行实例化和调度。这一点可以从清单文件中看的更直接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;application android:label=&quot;@string/app_name&quot;&gt;  </div><div class="line">        &lt;activity &gt;  &lt;/activity&gt;  </div><div class="line">        &lt;receiver /&gt;  </div><div class="line">        &lt;provider /&gt;  </div><div class="line">        &lt;service /&gt;  </div><div class="line"> &lt;/application&gt;</div></pre></td></tr></table></figure></p>
 <ul>
-<li>由于某种原因，项目的targetSdkVersion 最高只能设置到22，但是需要在调用系统相机的时候检测权限，原本是使用如下的权限工具类来检测是否有权限的：</li>
+<li><strong>Process</strong></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import android.content.Context;</div><div class="line">import android.content.pm.PackageManager;</div><div class="line">import android.support.v4.content.ContextCompat;</div><div class="line"></div><div class="line">public class PermissionUtil &#123;</div><div class="line">    private final Context mContext;</div><div class="line"></div><div class="line">    public PermissionUtil(Context context) &#123;</div><div class="line">        mContext = context.getApplicationContext();</div><div class="line">    &#125;</div><div class="line">    // 判断权限集合</div><div class="line">    public boolean lacksPermissions(String... permissions) &#123;</div><div class="line">        for (String permission : permissions) &#123;</div><div class="line">            if (lacksPermission(permission)) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    // 判断是否缺少权限,缺少返回true:只有targetSDKversion &gt;=23 的时候有效</div><div class="line">    public boolean lacksPermission(String permission) &#123;</div><div class="line">        return ContextCompat.checkSelfPermission(mContext, permission) ==</div><div class="line">                PackageManager.PERMISSION_DENIED;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但是这种方式检测<code>ContextCompat.checkSelfPermission</code>无论开启和关闭权限，检测出来都是同一个结果，因为这种检测方式只适用于targetSdkVersion &gt;= 23的情况。</p>
+<p>进程，在默认情况下，一个应用程序的所有组件运行在同一个进程中。但是这种情况也有例外，即，应用程序中的不同组件可以运行在不同的进程中。只需要在manifest中用process属性指定组件所运行的进程的名字。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=&quot;.MyActivity&quot; android:label=&quot;@string/app_nam&quot;  </div><div class="line">    android:process=&quot;:remote&quot;&gt;  </div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>Task</strong></li>
+</ul>
+<p>是一种用来放置Activity实例的容器，是一种先进后出的栈结构，主要有2个基本操作：压栈和出栈，其所存放的Activity是不支持重新排序的，只能根据压栈和出栈操作更改Activity的顺序。启动一个Application的时候，系统会为它默认创建一个对应的Task，用来放置根Activity。默认启动Activity会放在同一个Task中，新启动的Activity会被压入启动它的那个Activity的栈中，并且显示它。当用户按下回退键时，这个Activity就会被弹出栈，按下Home键回到桌面，再启动另一个应用，这时候之前那个Task就被移到后台，成为后台任务栈，而刚启动的那个Task就被调到前台，成为前台任务栈，手机页面显示的就是前台任务栈中的栈顶元素。</p>
+<h1 id="为什么要使用启动模式"><a href="#为什么要使用启动模式" class="headerlink" title="为什么要使用启动模式"></a>为什么要使用启动模式</h1><ul>
+<li>在开发过程中遇到奇怪的或者不是自己想要的页面跳转，这时候启动模式可以派上用场</li>
+<li>有时候我们的App需要生成给其他App调用的Activity，例如浏览器应用，照相机应用：<strong>Task是可以跨进程和跨应用的</strong></li>
+<li>解决生成重复页面等等Bug</li>
+<li>任务栈过深的时候，避免一直按返回键也退不回想要的页面</li>
+</ul>
+<h1 id="四种启动模式"><a href="#四种启动模式" class="headerlink" title="四种启动模式"></a>四种启动模式</h1><h2 id="standard"><a href="#standard" class="headerlink" title="standard"></a>standard</h2><ul>
+<li>标准模式，这是Activity的默认模式，所有的Activity遵循元素“先进后出”的特性。</li>
+<li>每次启动一个Activity都会创建一个新的实例，不管这个实例是否已经存在。</li>
+<li>被创建的实例的生命周期符合典型情况下Activity的生命周期，它的onCreate、onStart、onResume都会被调用。</li>
+<li>在这种模式下，谁启动了这个Activity，那么这个Activity就运行在启动它的Activity所在的栈中。</li>
+<li>如果使用ApplicationContext去启动一个标准模式的Activity就会报错，这是由于非Activity类型的Context没有任务栈，被启动的Activity无处安放。解决这个问题的办法就是为待启动的Activity指定FLAG_ACTIVITY_NEW_TASK标记位，这样启动的时候就会为它创建一个新的任务栈，这个时候待启动的Activity实际上是以singTask模式启动的。</li>
+</ul>
+<h2 id="singleTop"><a href="#singleTop" class="headerlink" title="singleTop"></a>singleTop</h2><ul>
+<li>栈顶复用模式</li>
+<li>如果待启动的Activity已经位于栈顶，则不会被重新创建，它的onCreate、onStart不会被调用，但是会调用它的onNewIntent方法。</li>
+<li>如果待启动的Activity实例已经存在但不是位于栈顶，仍然会重新创建。</li>
+<li>只有在栈顶才会复用，不在栈顶则与标准模式类似。</li>
+</ul>
+<h2 id="singleTask"><a href="#singleTask" class="headerlink" title="singleTask"></a>singleTask</h2><ul>
+<li>栈内复用模式</li>
+<li>这是一种单实例模式</li>
+<li>在这种模式下，只要这个Activity在一个栈中存在，那么多次启动此Activity都不会重新创建实例，和singleTop一样，也会调用onNewIntent。</li>
+<li><p>当一个设置为singleTask模式的Activity被启动后，例如Activity A ，会有以下四种情况：</p>
+<p>  ①：A想要的任务栈不存在：创建新的任务栈，并创建A的实例后把A放入栈中；</p>
+<p>  ②：A想要的任务栈已经存在，但这个栈中不存在A的实例：创建A的实例，并把A压入栈中；</p>
+<p>  ③：A想要的任务栈已经存在，而且这个栈中也存在A的实例，但是A不位于栈顶：此时会将A之上的Activity压出栈（清楚出去，销毁实例），使A位于栈顶。这时，不会执行onCreate、onStart方法，而是执行onNewIntent方法。</p>
+<p>  ④：A想要的任务栈已经存在，而且这个栈中也存在A的实例，并且A位于栈顶：此时仅仅执行onNewIntent方法。</p>
+</li>
+<li>什么是A想要的任务栈</li>
+</ul>
+<p>默认情况下，所有Activity所需的任务栈的名字为应用的包名。如果要为某个Activity指定单独 的任务栈，就要设置TaskAffinity这个属性参数。TaskAffinity属性主要和singleTask启动模式或者allowTaskReparenting属性配对使用，在其他情况下没有意义。</p>
+<h2 id="singleInstance"><a href="#singleInstance" class="headerlink" title="singleInstance"></a>singleInstance</h2><ul>
+<li>单实例模式</li>
+<li>加强的singleTask，它具有singleTask模式具有的所有特性，加强之处在于：只能单独位于一个任务栈中。</li>
+<li>比如Activity A是singleInstance模式，启动A后，系统会为它创建一个新的任务栈，然后A独自在这个心的任务栈，由于栈内复用的特性，后续的请求均不会创建新的Activity，除非这个独特的任务栈被系统销毁了。</li>
+</ul>
+<h1 id="如何指定Activity的启动模式"><a href="#如何指定Activity的启动模式" class="headerlink" title="如何指定Activity的启动模式"></a>如何指定Activity的启动模式</h1><ul>
+<li>第一种方式：在清单文件中配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;activity </div><div class="line">    android:name=&quot;.TestActivity&quot;</div><div class="line">    android:launchMode=&quot;standard或者singleInstance或者singleTask或者singleTop&quot;&gt;</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>第二种方式：在Intent中设置标志位</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent();</div><div class="line">intent.setClass(MainActivity.this, SecondActivity.class);</div><div class="line">intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);</div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure>
+<ul>
+<li>当两种同时存在时，以第二种也就是在Intent中设置标志位为准，它的优先级更高。</li>
+<li>第一种无法直接为Activity指定FLAG_ACTIVITY_CLEAR_TOP标识，第二种无法为Activity指定singleInstance模式</li>
+</ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://jijiaxin89.com/2015/08/30/Android-s-Runtime-Permission/" target="_blank" rel="external">Android M 新的运行时权限开发者需要知道的一切</a></li>
-<li><a href="https://yanlu.me/android-m6-0-permission-chasm/" target="_blank" rel="external">Android M(6.0) 权限爬坑之旅</a></li>
-<li><a href="https://www.aswifter.com/2015/11/04/android-6-permission/" target="_blank" rel="external">Android 6.0 运行时权限处理</a>: 有相关开源项目介绍</li>
-<li><a href="https://kingideayou.github.io/2015/11/09/Android_M_permissions/" target="_blank" rel="external">Android M 应用获取权限</a></li>
+<li><a href="http://pan.baidu.com/s/1hstyOUo" target="_blank" rel="external">Android开发艺术探索</a>(任玉刚)</li>
+<li><a href="http://blog.csdn.net/zivensonice/article/details/51569502" target="_blank" rel="external">彻底明白Activity启动模式-SingleTop、SingleTask、SingleInstance具体使用场景</a></li>
+<li><a href="http://blog.csdn.net/zhangjg_blog/article/details/10923643" target="_blank" rel="external">Android中Activity四种启动模式和taskAffinity属性详解</a></li>
+<li><a href="">Android开发艺术探索</a></li>
+<li><a href="https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en" target="_blank" rel="external">Understand Android Activity’s launchMode</a></li>
 </ul>
 
       
@@ -434,17 +427,13 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/06/Android-Studio导入支持包的问题/" rel="next" title="AndroidStudio的build.gradle文件配置以及导入支持包的问题">
-                <i class="fa fa-chevron-left"></i> AndroidStudio的build.gradle文件配置以及导入支持包的问题
+              <a href="/2016/08/07/如何让谷歌和百度搜索到自己GitHub上的博客/" rel="next" title="如何让谷歌和百度搜索到自己在GitHub上的博客">
+                <i class="fa fa-chevron-left"></i> 如何让谷歌和百度搜索到自己在GitHub上的博客
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/07/如何让谷歌和百度搜索到自己GitHub上的博客/" rel="prev" title="如何让谷歌和百度搜索到自己在GitHub上的博客">
-                如何让谷歌和百度搜索到自己在GitHub上的博客 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,8 +459,8 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/06/对于安卓权限管理的理解/"
-           data-title="对于安卓权限管理的理解" data-url="https://maxwellyue.github.io/2016/08/06/对于安卓权限管理的理解/">
+      <div class="ds-thread" data-thread-key="2016/08/09/Android中Activity的启动模式详解/"
+           data-title="Android中Activity的启动模式" data-url="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/">
       </div>
     
   </div>
@@ -562,7 +551,7 @@ requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么时候才会产生动态权限的申请等"><span class="nav-number">1.</span> <span class="nav-text">什么时候才会产生动态权限的申请等</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#权限分类"><span class="nav-number">2.</span> <span class="nav-text">权限分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fragment申请权限的时候"><span class="nav-number">3.</span> <span class="nav-text">Fragment申请权限的时候</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在targetSdkVersion-lt-22的时候"><span class="nav-number">4.</span> <span class="nav-text">在targetSdkVersion < = 22的时候</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解几个概念：Application，Task和Process"><span class="nav-number">1.</span> <span class="nav-text">理解几个概念：Application，Task和Process</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要使用启动模式"><span class="nav-number">2.</span> <span class="nav-text">为什么要使用启动模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四种启动模式"><span class="nav-number">3.</span> <span class="nav-text">四种启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#standard"><span class="nav-number">3.1.</span> <span class="nav-text">standard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleTop"><span class="nav-number">3.2.</span> <span class="nav-text">singleTop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleTask"><span class="nav-number">3.3.</span> <span class="nav-text">singleTask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleInstance"><span class="nav-number">3.4.</span> <span class="nav-text">singleInstance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何指定Activity的启动模式"><span class="nav-number">4.</span> <span class="nav-text">如何指定Activity的启动模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
