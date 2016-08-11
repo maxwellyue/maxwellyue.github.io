@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="按道理来讲，实现圆角很简单，在shape中设置corners即可。但是有时候会出现即使设置了也不会出现圆角的效果。">
+<meta name="description" content="很多界面都需要控制软键盘的打开与收起，有必要了解关于Android的软键盘的控制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android中利用shape实现圆角">
-<meta property="og:url" content="https://maxwellyue.github.io/2016/08/10/Android利用shape实现圆角/index.html">
+<meta property="og:title" content="关于Android软键盘的一切">
+<meta property="og:url" content="https://maxwellyue.github.io/2016/08/11/关于Android软键盘的一切/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="按道理来讲，实现圆角很简单，在shape中设置corners即可。但是有时候会出现即使设置了也不会出现圆角的效果。">
-<meta property="og:updated_time" content="2016-08-11T09:50:44.173Z">
+<meta property="og:description" content="很多界面都需要控制软键盘的打开与收起，有必要了解关于Android的软键盘的控制。">
+<meta property="og:updated_time" content="2016-08-11T13:05:36.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android中利用shape实现圆角">
-<meta name="twitter:description" content="按道理来讲，实现圆角很简单，在shape中设置corners即可。但是有时候会出现即使设置了也不会出现圆角的效果。">
+<meta name="twitter:title" content="关于Android软键盘的一切">
+<meta name="twitter:description" content="很多界面都需要控制软键盘的打开与收起，有必要了解关于Android的软键盘的控制。">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/10/Android利用shape实现圆角/"/>
+  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/11/关于Android软键盘的一切/"/>
 
-  <title> Android中利用shape实现圆角 | Maxwell </title>
+  <title> 关于Android软键盘的一切 | Maxwell </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                Android中利用shape实现圆角
+                关于Android软键盘的一切
               
             
           </h1>
@@ -270,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-10T10:42:36+08:00" content="2016-08-10">
-              2016-08-10
+            <time itemprop="dateCreated" datetime="2016-08-11T19:53:56+08:00" content="2016-08-11">
+              2016-08-11
             </time>
           </span>
 
@@ -300,8 +300,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/10/Android利用shape实现圆角/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/Android利用shape实现圆角/" itemprop="commentsCount"></span>
+                <a href="/2016/08/11/关于Android软键盘的一切/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/11/关于Android软键盘的一切/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -311,7 +311,7 @@
 
           
           
-             <span id="/2016/08/10/Android利用shape实现圆角/" class="leancloud_visitors" data-flag-title="Android中利用shape实现圆角">
+             <span id="/2016/08/11/关于Android软键盘的一切/" class="leancloud_visitors" data-flag-title="关于Android软键盘的一切">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -333,27 +333,35 @@
       
 
       
-        <p>按道理来讲，实现圆角很简单，在shape中设置corners即可。但是有时候会出现即使设置了也不会出现圆角的效果。<br><a id="more"></a></p>
-<h1 id="属性解释"><a href="#属性解释" class="headerlink" title="属性解释"></a>属性解释</h1><ul>
-<li><p>corners：设置圆角，只适用于rectangle类型，可分别设置四个角不同半径的圆角。</p>
-<p>  android:radius 圆角半径，会被下面每个特定的圆角属性重写</p>
-<p>  android:topLeftRadius 左上角的半径</p>
-<p>  android:topRightRadius 右上角的半径</p>
-<p>  android:bottomLeftRadius 左下角的半径</p>
-<p>  android:bottomRightRadius 右下角的半径</p>
+        <p>很多界面都需要控制软键盘的打开与收起，有必要了解关于Android的软键盘的控制。<br><a id="more"></a></p>
+<h1 id="软键盘的显示原理"><a href="#软键盘的显示原理" class="headerlink" title="软键盘的显示原理"></a>软键盘的显示原理</h1><p>软键盘其实是一个Dialog。InputMethodService为我们的输入法创建了一个Dialog，并且对某些参数进行了设置，使之能够在底部或者全屏显示。当我们点击输入框时，系统会对当前的主窗口进行调整，以便留出相应的空间来显示该Dialog在底部，或者全屏。</p>
+<h1 id="Activity中软键盘的设置参数"><a href="#Activity中软键盘的设置参数" class="headerlink" title="Activity中软键盘的设置参数"></a>Activity中软键盘的设置参数</h1><ul>
+<li>这里所说的参数设置，是指在清单文件中对软键盘的一些配置，如下所示。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;activity </div><div class="line">	android:name=&quot;.Main&quot;</div><div class="line">    android:label=&quot;@string/app_name&quot;</div><div class="line">    android:windowSoftInputMode=&quot;adjustUnspecified|stateHidden&quot;</div><div class="line">    android:configChanges=&quot;orientation|keyboardHidden&quot;&gt;</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>当然，一般情况下，可以在清单文件中设置的属性，都可以在代码中实现。要设置软件盘属性，要在activity中的oncreate中的setContentView之前进行配置，举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);</div></pre></td></tr></table></figure>
+<ul>
+<li>关于windowSoftInputMode </li>
+</ul>
+<p>这个属性的意义有两点：</p>
+<p>（1）软键盘的状态——隐藏或显示。</p>
+<p>（2）活动的主窗口调整：是否减少活动主窗口大小以便腾出空间放软键盘或是否当活动窗口的部分被软键盘覆盖时它的内容的当前焦点是可见的。</p>
 </li>
 </ul>
-<h1 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h1><p>比如我想设置左边两个角为圆角，正常思路是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;corners</div><div class="line">    android:topLeftRadius=&quot;8dp&quot;</div><div class="line">    android:topRightRadius=&quot;8dp&quot;</div><div class="line">    android:bottomRightRadius=&quot;0dp&quot;</div><div class="line">    android:bottomLeftRadius=&quot;0dp&quot;</div><div class="line">    /&gt;</div></pre></td></tr></table></figure></p>
-<p>但实际情况是，这样并不会出现圆角的效果。</p>
-<p>正确的做法是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;corners</div><div class="line">        android:radius=&quot;2dp&quot; //这里要首先设置</div><div class="line">        android:topLeftRadius=&quot;8dp&quot;</div><div class="line">        android:topRightRadius=&quot;8dp&quot;</div><div class="line">        android:bottomRightRadius=&quot;0dp&quot;</div><div class="line">        android:bottomLeftRadius=&quot;0dp&quot;</div><div class="line">        /&gt;</div></pre></td></tr></table></figure>
-<p>此时，在Android studio 中看预览效果还是4个圆角, 但实际运行是满足的。</p>
-<ul>
-<li>注意以下几点</li>
+<p>这个属性的可选属性值有以下几个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">设置规则：</div><div class="line"></div><div class="line">该属性的设置必须是下面列表中的一个值，或一个“state…”值加一个“adjust…”值的组合。</div><div class="line"></div><div class="line">在任一组设置多个值，各个值之间用|分开。</div><div class="line"></div><div class="line"></div><div class="line">state开头：</div><div class="line">--------------------------------------------------------------------------------------------</div><div class="line">&quot;stateUnspecified&quot;： 软键盘的状态(隐藏或可见)没有被指定。系统将选择一个合适的状态或依赖于主题的设置。这个是软件盘行为的默认设置。</div><div class="line"></div><div class="line">&quot;stateUnchanged&quot;：软键盘被保持上次的状态。</div><div class="line"></div><div class="line">&quot;stateHidden&quot;：当用户选择该Activity时，软键盘被隐藏。</div><div class="line"></div><div class="line">&quot;stateAlwaysHidden&quot;： 软键盘总是被隐藏的。</div><div class="line"></div><div class="line">&quot;stateVisible&quot;： 软键盘是可见的。</div><div class="line"></div><div class="line">&quot;stateAlwaysVisible&quot;： 当用户选择这个Activity时，软键盘是可见的。</div><div class="line"></div><div class="line"></div><div class="line">adjust开头：</div><div class="line">----------------------------------------------------------------------------------------------</div><div class="line"></div><div class="line">&quot;adjustUnspecified&quot;：默认设置，通常由系统自行决定是隐藏还是显示：决定因素在于内容是否可以滚动。</div><div class="line"></div><div class="line">&quot;adjustResize&quot;：（压缩，上顶）当软键盘弹出时，对主窗口调整屏幕的大小以便留出软键盘的空间。</div><div class="line"></div><div class="line">&quot;adjustPan&quot;：（平移）始终保持输入框为可见：当输入框不会被遮挡时，该模式不会对布局进行调整，而当输</div><div class="line">入框将要被遮挡时，窗口就会进行平移（这里:输入框以下的布局内容依然会被遮挡）。当前窗口的内容会自动移动，从而保证当前焦点不被键盘覆盖</div><div class="line">以及用户总能看到输入内容的部分。此模式下，用户只有关闭软键盘才能与被覆盖内容的交互操作。</div></pre></td></tr></table></figure></p>
+<h1 id="软件盘的开关"><a href="#软件盘的开关" class="headerlink" title="软件盘的开关"></a>软件盘的开关</h1><ul>
+<li>网上的方法很多，很乱。这里给出工具类。</li>
 </ul>
-<p>1、在设置圆角时,圆角半径的大小必须大于1,否则是没有圆角效果的。</p>
-<p>2、如果你想单独设置某几个角是圆角, 你必须首先声明 radius 属性(必须大于1), </p>
-<p>然后在其他四个角的属性中设置每个角的实际想要的半径大小, 不想圆角的设置为(“0dp”).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">工具类</div><div class="line">---------------------------------------------------------------------------------------------------</div><div class="line">public class SoftInputUtil &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 关闭软件盘</div><div class="line">     * @param activity</div><div class="line">     * @param view 与软键盘相联系的View，这个View要可以获取和失去焦点，一般为EditText</div><div class="line">     */</div><div class="line">    public static void closeSoftInput(Activity activity, View view)&#123;</div><div class="line">        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 打开软件盘</div><div class="line">     * @param activity</div><div class="line">     * @param view 与软键盘相联系的View，这个View要可以获取和失去焦点，一般为EditText</div><div class="line">     */</div><div class="line">    public static void openSoftInput(Activity activity, View view)&#123;</div><div class="line">        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 如果输入法在窗口上已经显示，则隐藏;反之则显示</div><div class="line">     * @param activity</div><div class="line">     */</div><div class="line">    public static void toggleSoftInput(Activity activity)&#123;</div><div class="line">        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);</div><div class="line">        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">---------------------------------------------------------------------------------------------------</div></pre></td></tr></table></figure>
+<h1 id="关于windowToken"><a href="#关于windowToken" class="headerlink" title="关于windowToken"></a>关于windowToken</h1><p>如果深入去看toggleSoftInput，showSoftInput、hideSoftInputFromWindow等方法的系统源码，<br>会发现windowToken这个对象经常出现，所以要理解windowToken这个对象的含义。</p>
+<ul>
+<li>待续</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://technicalsearch.iteye.com/blog/1967715" target="_blank" rel="external">Android软键盘的用法总结</a></li>
+</ul>
 
       
     </div>
@@ -379,17 +387,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/09/Android中Activity的启动模式详解/" rel="next" title="Android中Activity的启动模式">
-                <i class="fa fa-chevron-left"></i> Android中Activity的启动模式
+              <a href="/2016/08/11/Android中AutoCompleteTextView使用-自定义过滤规则/" rel="next" title="Android中AutoCompleteTextView使用+自定义过滤规则">
+                <i class="fa fa-chevron-left"></i> Android中AutoCompleteTextView使用+自定义过滤规则
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/11/Android中AutoCompleteTextView使用-自定义过滤规则/" rel="prev" title="Android中AutoCompleteTextView使用+自定义过滤规则">
-                Android中AutoCompleteTextView使用+自定义过滤规则 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -415,8 +419,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/10/Android利用shape实现圆角/"
-           data-title="Android中利用shape实现圆角" data-url="https://maxwellyue.github.io/2016/08/10/Android利用shape实现圆角/">
+      <div class="ds-thread" data-thread-key="2016/08/11/关于Android软键盘的一切/"
+           data-title="关于Android软键盘的一切" data-url="https://maxwellyue.github.io/2016/08/11/关于Android软键盘的一切/">
       </div>
     
   </div>
@@ -507,7 +511,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#属性解释"><span class="nav-number">1.</span> <span class="nav-text">属性解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题与解决"><span class="nav-number">2.</span> <span class="nav-text">问题与解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软键盘的显示原理"><span class="nav-number">1.</span> <span class="nav-text">软键盘的显示原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity中软键盘的设置参数"><span class="nav-number">2.</span> <span class="nav-text">Activity中软键盘的设置参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件盘的开关"><span class="nav-number">3.</span> <span class="nav-text">软件盘的开关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于windowToken"><span class="nav-number">4.</span> <span class="nav-text">关于windowToken</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
