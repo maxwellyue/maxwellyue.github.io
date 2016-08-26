@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
+<meta name="description" content="从StrictMode是什么、怎么用来介绍安卓中的严格模式。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android中Activity的启动模式">
-<meta property="og:url" content="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/index.html">
+<meta property="og:title" content="关于严格模式StrictMode">
+<meta property="og:url" content="https://maxwellyue.github.io/2016/08/24/关于严格模式StrictMode/index.html">
 <meta property="og:site_name" content="Maxwell">
-<meta property="og:description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
-<meta property="og:updated_time" content="2016-08-09T05:54:54.983Z">
+<meta property="og:description" content="从StrictMode是什么、怎么用来介绍安卓中的严格模式。">
+<meta property="og:updated_time" content="2016-08-24T02:10:54.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android中Activity的启动模式">
-<meta name="twitter:description" content="从为什么使用启动模式、启动模式是什么、怎么使用来介绍。">
+<meta name="twitter:title" content="关于严格模式StrictMode">
+<meta name="twitter:description" content="从StrictMode是什么、怎么用来介绍安卓中的严格模式。">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/"/>
+  <link rel="canonical" href="https://maxwellyue.github.io/2016/08/24/关于严格模式StrictMode/"/>
 
-  <title> Android中Activity的启动模式 | Maxwell </title>
+  <title> 关于严格模式StrictMode | Maxwell </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@
             
             
               
-                Android中Activity的启动模式
+                关于严格模式StrictMode
               
             
           </h1>
@@ -270,8 +270,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-09T10:26:36+08:00" content="2016-08-09">
-              2016-08-09
+            <time itemprop="dateCreated" datetime="2016-08-24T08:42:42+08:00" content="2016-08-24">
+              2016-08-24
             </time>
           </span>
 
@@ -285,7 +285,7 @@
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">安卓开发</span>
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -300,8 +300,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/09/Android中Activity的启动模式详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/09/Android中Activity的启动模式详解/" itemprop="commentsCount"></span>
+                <a href="/2016/08/24/关于严格模式StrictMode/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/关于严格模式StrictMode/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -311,7 +311,7 @@
 
           
           
-             <span id="/2016/08/09/Android中Activity的启动模式详解/" class="leancloud_visitors" data-flag-title="Android中Activity的启动模式">
+             <span id="/2016/08/24/关于严格模式StrictMode/" class="leancloud_visitors" data-flag-title="关于严格模式StrictMode">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -333,75 +333,63 @@
       
 
       
-        <p>从为什么使用启动模式、启动模式是什么、怎么使用来介绍。<br><a id="more"></a></p>
-<h1 id="理解几个概念：Application，Task和Process"><a href="#理解几个概念：Application，Task和Process" class="headerlink" title="理解几个概念：Application，Task和Process"></a>理解几个概念：Application，Task和Process</h1><ul>
-<li><strong>Application</strong></li>
-</ul>
-<p>应用，由四大组件组成的，在app安装时，系统会读取manifest的信息，将所有的组件解析出来，以便在运行时对组件进行实例化和调度。这一点可以从清单文件中看的更直接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;application android:label=&quot;@string/app_name&quot;&gt;  </div><div class="line">        &lt;activity &gt;  &lt;/activity&gt;  </div><div class="line">        &lt;receiver /&gt;  </div><div class="line">        &lt;provider /&gt;  </div><div class="line">        &lt;service /&gt;  </div><div class="line"> &lt;/application&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>Process</strong></li>
-</ul>
-<p>进程，在默认情况下，一个应用程序的所有组件运行在同一个进程中。但是这种情况也有例外，即，应用程序中的不同组件可以运行在不同的进程中。只需要在manifest中用process属性指定组件所运行的进程的名字。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=&quot;.MyActivity&quot; android:label=&quot;@string/app_nam&quot;  </div><div class="line">    android:process=&quot;:remote&quot;&gt;  </div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>Task</strong></li>
-</ul>
-<p>是一种用来放置Activity实例的容器，是一种先进后出的栈结构，主要有2个基本操作：压栈和出栈，其所存放的Activity是不支持重新排序的，只能根据压栈和出栈操作更改Activity的顺序。启动一个Application的时候，系统会为它默认创建一个对应的Task，用来放置根Activity。默认启动Activity会放在同一个Task中，新启动的Activity会被压入启动它的那个Activity的栈中，并且显示它。当用户按下回退键时，这个Activity就会被弹出栈，按下Home键回到桌面，再启动另一个应用，这时候之前那个Task就被移到后台，成为后台任务栈，而刚启动的那个Task就被调到前台，成为前台任务栈，手机页面显示的就是前台任务栈中的栈顶元素。</p>
-<h1 id="为什么要使用启动模式"><a href="#为什么要使用启动模式" class="headerlink" title="为什么要使用启动模式"></a>为什么要使用启动模式</h1><ul>
-<li>在开发过程中遇到奇怪的或者不是自己想要的页面跳转，这时候启动模式可以派上用场</li>
-<li>有时候我们的App需要生成给其他App调用的Activity，例如浏览器应用，照相机应用：<strong>Task是可以跨进程和跨应用的</strong></li>
-<li>解决生成重复页面等等Bug</li>
-<li>任务栈过深的时候，避免一直按返回键也退不回想要的页面</li>
-</ul>
-<h1 id="四种启动模式"><a href="#四种启动模式" class="headerlink" title="四种启动模式"></a>四种启动模式</h1><h2 id="standard"><a href="#standard" class="headerlink" title="standard"></a>standard</h2><ul>
-<li>标准模式，这是Activity的默认模式，所有的Activity遵循元素“先进后出”的特性。</li>
-<li>每次启动一个Activity都会创建一个新的实例，不管这个实例是否已经存在。</li>
-<li>被创建的实例的生命周期符合典型情况下Activity的生命周期，它的onCreate、onStart、onResume都会被调用。</li>
-<li>在这种模式下，谁启动了这个Activity，那么这个Activity就运行在启动它的Activity所在的栈中。</li>
-<li>如果使用ApplicationContext去启动一个标准模式的Activity就会报错，这是由于非Activity类型的Context没有任务栈，被启动的Activity无处安放。解决这个问题的办法就是为待启动的Activity指定FLAG_ACTIVITY_NEW_TASK标记位，这样启动的时候就会为它创建一个新的任务栈，这个时候待启动的Activity实际上是以singTask模式启动的。</li>
-</ul>
-<h2 id="singleTop"><a href="#singleTop" class="headerlink" title="singleTop"></a>singleTop</h2><ul>
-<li>栈顶复用模式</li>
-<li>如果待启动的Activity已经位于栈顶，则不会被重新创建，它的onCreate、onStart不会被调用，但是会调用它的onNewIntent方法。</li>
-<li>如果待启动的Activity实例已经存在但不是位于栈顶，仍然会重新创建。</li>
-<li>只有在栈顶才会复用，不在栈顶则与标准模式类似。</li>
-</ul>
-<h2 id="singleTask"><a href="#singleTask" class="headerlink" title="singleTask"></a>singleTask</h2><ul>
-<li>栈内复用模式</li>
-<li>这是一种单实例模式</li>
-<li>在这种模式下，只要这个Activity在一个栈中存在，那么多次启动此Activity都不会重新创建实例，和singleTop一样，也会调用onNewIntent。</li>
-<li><p>当一个设置为singleTask模式的Activity被启动后，例如Activity A ，会有以下四种情况：</p>
-<p>  ①：A想要的任务栈不存在：创建新的任务栈，并创建A的实例后把A放入栈中；</p>
-<p>  ②：A想要的任务栈已经存在，但这个栈中不存在A的实例：创建A的实例，并把A压入栈中；</p>
-<p>  ③：A想要的任务栈已经存在，而且这个栈中也存在A的实例，但是A不位于栈顶：此时会将A之上的Activity压出栈（清楚出去，销毁实例），使A位于栈顶。这时，不会执行onCreate、onStart方法，而是执行onNewIntent方法。</p>
-<p>  ④：A想要的任务栈已经存在，而且这个栈中也存在A的实例，并且A位于栈顶：此时仅仅执行onNewIntent方法。</p>
+        <p>从StrictMode是什么、怎么用来介绍安卓中的严格模式。<br><a id="more"></a></p>
+<h1 id="StrictMode是什么"><a href="#StrictMode是什么" class="headerlink" title="StrictMode是什么"></a>StrictMode是什么</h1><ul>
+<li><p>StrictMode意思为严格模式，是用来检测程序中违例情况的开发者工具。</p>
 </li>
-<li>什么是A想要的任务栈</li>
+<li><p>最常用的场景就是检测主线程中本地磁盘和网络读写等耗时的操作。</p>
+</li>
+<li><p>StrictMode最常用来捕捉应用程序的主线程，它将报告与线程及虚拟机相关的策略违例。一旦检测到策略违例（policy violation），你将获得警告，其包含了一个栈trace显示你的应用在何处发生违例。</p>
+</li>
+<li><p>严格模式会将应用的违例细节暴露给开发者方便优化与改善。</p>
+</li>
 </ul>
-<p>默认情况下，所有Activity所需的任务栈的名字为应用的包名。如果要为某个Activity指定单独 的任务栈，就要设置TaskAffinity这个属性参数。TaskAffinity属性主要和singleTask启动模式或者allowTaskReparenting属性配对使用，在其他情况下没有意义。</p>
-<h2 id="singleInstance"><a href="#singleInstance" class="headerlink" title="singleInstance"></a>singleInstance</h2><ul>
-<li>单实例模式</li>
-<li>加强的singleTask，它具有singleTask模式具有的所有特性，加强之处在于：只能单独位于一个任务栈中。</li>
-<li>比如Activity A是singleInstance模式，启动A后，系统会为它创建一个新的任务栈，然后A独自在这个心的任务栈，由于栈内复用的特性，后续的请求均不会创建新的Activity，除非这个独特的任务栈被系统销毁了。</li>
+<h1 id="StrictMode的检查策略"><a href="#StrictMode的检查策略" class="headerlink" title="StrictMode的检查策略"></a>StrictMode的检查策略</h1><h4 id="线程策略（TreadPolicy）"><a href="#线程策略（TreadPolicy）" class="headerlink" title="线程策略（TreadPolicy）"></a>线程策略（TreadPolicy）</h4><ul>
+<li><p>自定义的耗时调用 使用detectCustomSlowCalls()开启</p>
+</li>
+<li><p>磁盘读取操作 使用detectDiskReads()开启</p>
+</li>
+<li><p>磁盘写入操作 使用detectDiskWrites()开启</p>
+</li>
+<li><p>网络操作 使用detectNetwork()开启</p>
+</li>
 </ul>
-<h1 id="如何指定Activity的启动模式"><a href="#如何指定Activity的启动模式" class="headerlink" title="如何指定Activity的启动模式"></a>如何指定Activity的启动模式</h1><ul>
-<li>第一种方式：在清单文件中配置</li>
+<h4 id="VM策略（VmPolicy）"><a href="#VM策略（VmPolicy）" class="headerlink" title="VM策略（VmPolicy）"></a>VM策略（VmPolicy）</h4><ul>
+<li><p>Activity泄露 使用detectActivityLeaks()开启</p>
+</li>
+<li><p>未关闭的Closable对象泄露 使用detectLeakedClosableObjects()开启</p>
+</li>
+<li><p>泄露的Sqlite对象 使用detectLeakedSqlLiteObjects()开启</p>
+</li>
+<li><p>检测实例数量 使用setClassInstanceLimit()开启</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;activity </div><div class="line">    android:name=&quot;.TestActivity&quot;</div><div class="line">    android:launchMode=&quot;standard或者singleInstance或者singleTask或者singleTop&quot;&gt;</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
+<h1 id="怎么使用StrictMode"><a href="#怎么使用StrictMode" class="headerlink" title="怎么使用StrictMode"></a>怎么使用StrictMode</h1><ul>
+<li><p>严格模式需要在debug模式开启，不要在release版本中启用。</p>
+</li>
+<li><p>放在哪里</p>
+</li>
+</ul>
+<p>严格模式的开启可以放在Application或者Activity以及其他组件的onCreate方法。</p>
+<p>为了更好地分析应用中的问题，建议放在Application的onCreate方法中。</p>
 <ul>
-<li>第二种方式：在Intent中设置标志位</li>
+<li>实现方式一</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent();</div><div class="line">intent.setClass(MainActivity.this, SecondActivity.class);</div><div class="line">intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);</div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">开启与否只在这里设置true或者false就可以了</div><div class="line">---------------------------------------------------------------------------</div><div class="line">public final class BuildConfig &#123;</div><div class="line">  public static final boolean DEBUG = Boolean.parseBoolean(&quot;true&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">这段代码放在Application的onCreate方法中，一般放在最开始的地方。</div><div class="line">-----------------------------------------------------------------------------</div><div class="line">if (BuildConfig.DEBUG) &#123;</div><div class="line">            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()</div><div class="line">                    .detectAll()</div><div class="line">                    .penaltyLog()</div><div class="line">                    .build());</div><div class="line">            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()</div><div class="line">                    .detectAll()</div><div class="line">                    .penaltyLog()</div><div class="line">                    .build());</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>当两种同时存在时，以第二种也就是在Intent中设置标志位为准，它的优先级更高。</li>
-<li>第一种无法直接为Activity指定FLAG_ACTIVITY_CLEAR_TOP标识，第二种无法为Activity指定singleInstance模式</li>
+<li><p>实现方式二</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">开启与否:使用AndroidMainifest文件中的debuggable属性来实现</div><div class="line"></div><div class="line">关于这个属性的解释： </div><div class="line">Whether or not the application can be debugged, even when running on a device in user mode </div><div class="line">— &quot;true &quot; if it can be, and &quot;false &quot; if not. </div><div class="line">The default value is &quot;false &quot;.</div><div class="line"></div><div class="line">-----------------------------------------------------------------------------</div><div class="line">     android:debuggable=&quot;true&quot;</div><div class="line"></div><div class="line"></div><div class="line">这段代码放在Application的onCreate方法中，一般放在最开始的地方。</div><div class="line">-----------------------------------------------------------------------------</div><div class="line">	 // Return if this application is not in debug mode </div><div class="line">     ApplicationInfo appInfo = context.getApplicationInfo(); </div><div class="line">     int appFlags = appInfo.flags; </div><div class="line">     if ((appFlags &amp; ApplicationInfo.FLAG_DEBUGGABLE) != 0) &#123; </div><div class="line">       </div><div class="line">          StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()</div><div class="line">                    .detectAll()</div><div class="line">                    .penaltyLog()</div><div class="line">                    .build());</div><div class="line">          StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()</div><div class="line">                    .detectAll()</div><div class="line">                    .penaltyLog()</div><div class="line">                    .build());</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看结果</p>
+</li>
 </ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://pan.baidu.com/s/1hstyOUo" target="_blank" rel="external">Android开发艺术探索</a>(任玉刚)</li>
-<li><a href="http://blog.csdn.net/zivensonice/article/details/51569502" target="_blank" rel="external">彻底明白Activity启动模式-SingleTop、SingleTask、SingleInstance具体使用场景</a></li>
-<li><a href="http://blog.csdn.net/zhangjg_blog/article/details/10923643" target="_blank" rel="external">Android中Activity四种启动模式和taskAffinity属性详解</a></li>
-<li><a href="">Android开发艺术探索</a></li>
-<li><a href="https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en" target="_blank" rel="external">Understand Android Activity’s launchMode</a></li>
+<p>严格模式有很多种报告违例的形式，但是想要分析具体违例情况，还是需要查看日志，终端下过滤StrictMode就能得到违例的具体stacktrace信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb logcat | grep StrictMode</div></pre></td></tr></table></figure>
+<ul>
+<li>手机端直观观察</li>
 </ul>
+<p>除了通过日志查看之外，我们也可以在手机的开发者选项中开启严格模式，开启之后，如果主线程中有执行时间长的操作，屏幕则会闪烁，这是一个更加直接的方法。</p>
+<h1 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://droidyue.com/blog/2015/09/26/android-tuning-tool-strictmode/index.html" target="_blank" rel="external">Android性能调优利器StrictMode</a><br><a href="http://blog.sina.com.cn/s/blog_6631f3510102vz18.html" target="_blank" rel="external">Android系列——StrictMode使用详解</a></p>
 
       
     </div>
@@ -427,17 +415,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/07/如何让谷歌和百度搜索到自己GitHub上的博客/" rel="next" title="如何让谷歌和百度搜索到自己在GitHub上的博客">
-                <i class="fa fa-chevron-left"></i> 如何让谷歌和百度搜索到自己在GitHub上的博客
+              <a href="/2016/08/12/Java中static关键字的用法/" rel="next" title="Java中static关键字的用法">
+                <i class="fa fa-chevron-left"></i> Java中static关键字的用法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/10/Android利用shape实现圆角/" rel="prev" title="Android中利用shape实现圆角">
-                Android中利用shape实现圆角 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +447,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/09/Android中Activity的启动模式详解/"
-           data-title="Android中Activity的启动模式" data-url="https://maxwellyue.github.io/2016/08/09/Android中Activity的启动模式详解/">
+      <div class="ds-thread" data-thread-key="2016/08/24/关于严格模式StrictMode/"
+           data-title="关于严格模式StrictMode" data-url="https://maxwellyue.github.io/2016/08/24/关于严格模式StrictMode/">
       </div>
     
   </div>
@@ -555,7 +539,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解几个概念：Application，Task和Process"><span class="nav-number">1.</span> <span class="nav-text">理解几个概念：Application，Task和Process</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要使用启动模式"><span class="nav-number">2.</span> <span class="nav-text">为什么要使用启动模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四种启动模式"><span class="nav-number">3.</span> <span class="nav-text">四种启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#standard"><span class="nav-number">3.1.</span> <span class="nav-text">standard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleTop"><span class="nav-number">3.2.</span> <span class="nav-text">singleTop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleTask"><span class="nav-number">3.3.</span> <span class="nav-text">singleTask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#singleInstance"><span class="nav-number">3.4.</span> <span class="nav-text">singleInstance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何指定Activity的启动模式"><span class="nav-number">4.</span> <span class="nav-text">如何指定Activity的启动模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#StrictMode是什么"><span class="nav-number">1.</span> <span class="nav-text">StrictMode是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StrictMode的检查策略"><span class="nav-number">2.</span> <span class="nav-text">StrictMode的检查策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程策略（TreadPolicy）"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">线程策略（TreadPolicy）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VM策略（VmPolicy）"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">VM策略（VmPolicy）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么使用StrictMode"><span class="nav-number">3.</span> <span class="nav-text">怎么使用StrictMode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待续"><span class="nav-number">4.</span> <span class="nav-text">待续</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
